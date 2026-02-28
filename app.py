@@ -6,7 +6,6 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from datetime import date
 import os
 
-# ─── DATA SETUP ───────────────────────────────────────────
 FILE = "expenses.csv"
 
 def load_data():
@@ -17,7 +16,6 @@ def load_data():
 def save_data(df):
     df.to_csv(FILE, index=False)
 
-# ─── MAIN APP ─────────────────────────────────────────────
 class ExpenseTracker:
     def __init__(self, root):
         self.root = root
@@ -29,35 +27,34 @@ class ExpenseTracker:
         self.build_ui()
 
     def build_ui(self):
-        # ── Title
+    
         tk.Label(self.root, text="💰 Expense Tracker", font=("Helvetica", 20, "bold"),
                  bg="#1e1e2e", fg="#cdd6f4").pack(pady=10)
 
-        # ── Input Frame
         input_frame = tk.Frame(self.root, bg="#313244", padx=10, pady=10)
         input_frame.pack(fill="x", padx=20)
 
-        # Category
+    
         tk.Label(input_frame, text="Category", bg="#313244", fg="white").grid(row=0, column=0, padx=5)
         self.category = ttk.Combobox(input_frame, values=["Food", "Transport", "Shopping", "Bills", "Health", "Other"], width=12)
         self.category.grid(row=1, column=0, padx=5)
         self.category.set("Food")
 
-        # Description
+
         tk.Label(input_frame, text="Description", bg="#313244", fg="white").grid(row=0, column=1, padx=5)
         self.desc = tk.Entry(input_frame, width=20)
         self.desc.grid(row=1, column=1, padx=5)
 
-        # Amount
+
         tk.Label(input_frame, text="Amount ($)", bg="#313244", fg="white").grid(row=0, column=2, padx=5)
         self.amount = tk.Entry(input_frame, width=10)
         self.amount.grid(row=1, column=2, padx=5)
 
-        # Add Button
+    
         tk.Button(input_frame, text="➕ Add Expense", bg="#a6e3a1", fg="black",
                   font=("Helvetica", 10, "bold"), command=self.add_expense).grid(row=1, column=3, padx=10)
 
-        # ── Table
+        
         table_frame = tk.Frame(self.root, bg="#1e1e2e")
         table_frame.pack(fill="both", padx=20, pady=10)
 
@@ -72,7 +69,7 @@ class ExpenseTracker:
         self.tree.configure(yscroll=scrollbar.set)
         scrollbar.pack(side="right", fill="y")
 
-        # ── Bottom Buttons
+    
         btn_frame = tk.Frame(self.root, bg="#1e1e2e")
         btn_frame.pack(pady=5)
 
@@ -82,7 +79,7 @@ class ExpenseTracker:
         tk.Button(btn_frame, text="📊 Show Chart", bg="#89b4fa", fg="black",
                   command=self.show_chart).pack(side="left", padx=10)
 
-        # ── Total Label
+
         self.total_label = tk.Label(self.root, text="Total: $0.00",
                                     font=("Helvetica", 14, "bold"), bg="#1e1e2e", fg="#f9e2af")
         self.total_label.pack(pady=5)
@@ -145,7 +142,6 @@ class ExpenseTracker:
         canvas.draw()
         canvas.get_tk_widget().pack()
 
-# ─── RUN ──────────────────────────────────────────────────
 if __name__ == "__main__":
     root = tk.Tk()
     app = ExpenseTracker(root)
